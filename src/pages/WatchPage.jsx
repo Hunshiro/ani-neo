@@ -114,7 +114,9 @@ export function WatchPage() {
       setLoading((current) => ({ ...current, stream: true }));
       try {
         const payload = await getStream(activeEpisodeId, activeServer.name, activeServer.type);
+        console.log('Stream response:', payload);
         if (!cancelled) {
+          console.log('Stream URL:', payload?.link?.file);
           setStream(payload);
         }
       } finally {
