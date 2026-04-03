@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { BrandMark } from '../../components/BrandMark';
 import { getAnimeInfo, getHome, searchAnime } from '../../services/api';
 import discordServerLogo from '../../assets/discord-server-logo.png';
-import './HomePage.css';
+import './homepage.css';
 
 const DISCORD_INVITE_URL = 'https://discord.gg/y6RsGPT2DG';
 
