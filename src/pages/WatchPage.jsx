@@ -144,7 +144,24 @@ export function WatchPage() {
     video.load();
 
     if (stream.link.type === 'm3u8' && Hls.isSupported()) {
-      const hls = new Hls();
+      const hls = new Hls({
+        xhrSetup: (xhr) => {
+          if (stream?.referer) {
+            xhr.setRequestHeader('Referer', stream.referer);
+            xhr.setRequestHeader('Origin', new URL(stream.referer).origin);
+          }
+        },
+        fetchSetup: (context, initParams) => {
+          if (stream?.referer) {
+            initParams.headers = {
+              ...initParams.headers,
+              'Referer': stream.referer,
+              'Origin': new URL(stream.referer).origin,
+            };
+          }
+          return new Request(context.url, initParams);
+        },
+      });
       hls.loadSource(stream.link.file);
       hls.attachMedia(video);
       hlsRef.current = hls;
