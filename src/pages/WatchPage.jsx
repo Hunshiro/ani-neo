@@ -427,14 +427,18 @@ export function WatchPage() {
 
           <div className="watch-player-shell">
             {stream?.link?.file ? (
-              <iframe
-                className="watch-player-frame"
-                src={stream.link.file}
-                title="Watch stream"
-                allowFullScreen
-                allow="autoplay; fullscreen; picture-in-picture"
-                sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-              />
+              stream?.link?.type === 'm3u8' ? (
+                <video ref={videoRef} className="watch-player-frame" controls playsInline poster={anime?.poster || ''} />
+              ) : (
+                <iframe
+                  className="watch-player-frame"
+                  src={stream.link.file}
+                  title="Watch stream"
+                  allowFullScreen
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                />
+              )
             ) : (
               <div className="watch-player-fallback">
                 {anime?.poster ? <img src={anime.poster} alt={anime.title} /> : null}
